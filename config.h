@@ -26,8 +26,8 @@ Bounce buttonTMinus = Bounce();
 Bounce buttonTPlus = Bounce();
 Bounce buttonPattern = Bounce();
 
-const uint16_t buttonHoldDelay = 750; // задержка до начала режима удержания кнопки, мс
-const uint16_t smallButtonTimerDelay = 100; //период увеличения значения при удержании кнопки
+const uint16_t buttonHoldDelay = 300; // задержка до начала режима удержания кнопки, мс
+const uint16_t smallButtonTimerDelay = 25; //период увеличения значения при удержании кнопки
 const uint8_t debounceInterval = 4;// интервал подавления дребезга
 
 uint8_t pin_SO_max=9; //пины датчика температуры 

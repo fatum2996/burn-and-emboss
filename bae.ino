@@ -229,30 +229,12 @@ void loop() {
   //    Serial.println("Button LP released");
       buttonTimer.stop();
       smallButtonTimer.stop();
-      systemData.heaterTargetTemperature -= heaterTargetTemperatureStep; 
-      if(systemData.heaterTargetTemperature < heaterTargetTemperatureMin) {
-        systemData.heaterTargetTemperature = heaterTargetTemperatureMin;
-      }
+      systemData.laserBeamDutyPercent = 25;
       buttonTMinusDown = 0;
   }
   }
  
-  if(buttonTMinusDown) {
-    if(buttonTimer.isReady()){
-   //   Serial.println("Hold timer ready");  
-      if( smallButtonTimer.isEnabled() == 0 ) {
-        smallButtonTimer.setInterval(smallButtonTimerDelay);      
-    //    Serial.println("small started");   
-      }
-    }
-    if(smallButtonTimer.isReady()){
-  //    Serial.println("small ready");   
-      systemData.heaterTargetTemperature -= heaterTargetTemperatureStep; 
-      if(systemData.heaterTargetTemperature < heaterTargetTemperatureMin) {
-        systemData.heaterTargetTemperature = heaterTargetTemperatureMin;
-      }  
-    }
-  }   
+
 //обработка кнопки T+
   if(buttonTPlus.update()) {
     if(buttonTPlus.read() == 0) {//кнопка нажата
@@ -268,29 +250,10 @@ void loop() {
       buttonTimer.stop();
       smallButtonTimer.stop();
       buttonTPlusDown1 = 0;
-      systemData.heaterTargetTemperature += heaterTargetTemperatureStep; 
-      if(systemData.heaterTargetTemperature > heaterTargetTemperatureMax) {
-        systemData.heaterTargetTemperature = heaterTargetTemperatureMax;
-      }
+      systemData.laserBeamDutyPercent = 50;
       buttonTPlusDown = 0;
     }
   }
-  if(buttonTPlusDown) {
-    if(buttonTimer.isReady()){
- //     Serial.println("Hold timer ready");  
-      if( smallButtonTimer.isEnabled() == 0 ) {
-        smallButtonTimer.setInterval(smallButtonTimerDelay);      
-   //     Serial.println("small started");   
-      }
-    }
-    if(smallButtonTimer.isReady()){
-   //   Serial.println("small ready");   
-      systemData.heaterTargetTemperature += heaterTargetTemperatureStep; 
-      if(systemData.heaterTargetTemperature > heaterTargetTemperatureMax) {
-        systemData.heaterTargetTemperature = heaterTargetTemperatureMax;
-      }  
-    }
-  }   
 
   //обработка нажатия кнопки Pattern
   if(buttonPattern.update()) {
