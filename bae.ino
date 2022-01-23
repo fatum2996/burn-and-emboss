@@ -74,9 +74,8 @@ void loop() {
       else {
         if(reading & 0x02)  //неверный ID микросхемы
           errorState = HEATER_STATE_ERROR_CONNECT_SENSOR;  
-        else { //no error
-          systemData.heaterTemperature = reading >> 5;
-        }        
+        else
+          systemData.heaterTemperature = reading >> 5;      
       }    
     }       
     if(errorState) {
@@ -113,9 +112,11 @@ void loop() {
     pneumoTimer.stop();   
     timerBusy=0;
   }
+  
   if(pneumoTimer.isReady()) { //задержка закончилась
     digitalWrite(PIN_PNEUMO, HIGH);  //включаем пневмо
   }
+  
 //обработка кнопки L+
   if(buttonLPlus.update()) {
     if(buttonLPlus.read() == 0) {//кнопка нажата
@@ -195,7 +196,6 @@ void loop() {
         buttonTMinusDown = 1;
       }      
     } else { //кнопка отпущена
-
       buttonTMinusDown1 = 0; 
       buttonTimer.stop();
       smallButtonTimer.stop();
@@ -204,7 +204,7 @@ void loop() {
         systemData.heaterTargetTemperature = heaterTargetTemperatureMin;
       }
       buttonTMinusDown = 0;
-  }
+    }
   }
  
   if(buttonTMinusDown) {
@@ -274,21 +274,19 @@ void loop() {
   }    
   //обновить дисплей        
 
-  if(buttonTPlusDown1 && buttonTMinusDown1){
+  if(buttonTPlusDown1 && buttonTMinusDown1)
         changeScreenState = 1;
-  }
+  
   if(changeScreenState) {
     screenState = !screenState;
     changeScreenState = 0;
     buttonTPlusDown1 = 0;
     buttonTMinusDown1 = 0;
   }
-  if(screenState) {
-    displayShowData(systemData);
-  }
+  if(screenState) 
+    displayShowData(systemData);  
   else {
     displayShowDataNoHeater(systemData);
     digitalWrite(PIN_HEATER, LOW);
   }
-
 }
